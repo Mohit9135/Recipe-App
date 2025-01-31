@@ -25,19 +25,17 @@ class RecipeActivity : AppCompatActivity() {
 
         binding.time.text=ing?.get(0)
 
-        for(i in 1 until ing!!.size){
-            binding.ingData.text=
-                """
-                    ${binding.ingData.text} 🟢 ${ing[i]}
-                    
-                """.trimIndent()
+//        for(i in 1 until ing!!.size){
+//            binding.ingData.text=
+//                """${binding.ingData.text} 🟢 ${ing[i]}
+//
+//                """.trimIndent()
+//        }
+        val formattedIngredients = StringBuilder()
+        for (i in 1 until (ing?.size ?: 0)) {
+            formattedIngredients.append("🟢 ${ing?.get(i)}\n")
         }
-        for(i in 1 until ing!!.size){
-            binding.stepData.text=
-                """
-                    ${binding.stepData.text} ${ing[i]}
-                """.trimIndent()
-        }
+        binding.ingData.text = formattedIngredients.toString().trim()
         binding.step.background=null
         binding.step.setTextColor(getColor((R.color.black)))
         binding.step.setOnClickListener{

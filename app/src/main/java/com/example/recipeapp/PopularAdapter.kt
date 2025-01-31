@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipeapp.databinding.PopularRvItemBinding
 
-class PopularAdapter(var dataList:ArrayList<Recipe>,var context:Context):RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
+class PopularAdapter(private var dataList:ArrayList<Recipe>, var context:Context):RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
     inner class ViewHolder (var binding:PopularRvItemBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var binding=PopularRvItemBinding.inflate(LayoutInflater.from(context),parent,false)
+        val binding=PopularRvItemBinding.inflate(LayoutInflater.from(context),parent,false)
         return ViewHolder(binding)
     }
 
@@ -21,18 +21,18 @@ class PopularAdapter(var dataList:ArrayList<Recipe>,var context:Context):Recycle
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(context).load(dataList.get(position).img).into(holder.binding.popularImage)
-        holder.binding.popularTxt.text=dataList.get(position).tittle
+        Glide.with(context).load(dataList[position].img).into(holder.binding.popularImage)
+        holder.binding.popularTxt.text= dataList[position].tittle
 
-        var time=dataList.get(position).ing.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        holder.binding.popularTime.text=time.get(0)
+        val time= dataList[position].ing.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        holder.binding.popularTime.text= time[0]
 
         holder.itemView.setOnClickListener{
-            var intent=Intent(context,RecipeActivity::class.java)
-            intent.putExtra("img",dataList.get(position).img)
-            intent.putExtra("title",dataList.get(position).tittle)
-            intent.putExtra("des",dataList.get(position).des)
-            intent.putExtra("ing",dataList.get(position).ing)
+            val intent=Intent(context,RecipeActivity::class.java)
+            intent.putExtra("img", dataList[position].img)
+            intent.putExtra("title", dataList[position].tittle)
+            intent.putExtra("des", dataList[position].des)
+            intent.putExtra("ing", dataList[position].ing)
             intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }

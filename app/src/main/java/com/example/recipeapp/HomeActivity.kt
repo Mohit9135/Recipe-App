@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
         setUpRecyclerView()
 
         binding.more.setOnClickListener{
-            var dialog = Dialog(this)
+            val dialog = Dialog(this)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setContentView(R.layout.bottom_sheet)
             dialog.show()
@@ -45,25 +45,25 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.salad.setOnClickListener{
-            var myIntent=(Intent(this@HomeActivity,CategoryActivity::class.java))
+            val myIntent=(Intent(this@HomeActivity,CategoryActivity::class.java))
             myIntent.putExtra("TITLE","Salad")
             myIntent.putExtra("CATEGORY","Salad")
             startActivity(myIntent)
         }
         binding.mainDish.setOnClickListener{
-            var myIntent=(Intent(this@HomeActivity,CategoryActivity::class.java))
+            val myIntent=(Intent(this@HomeActivity,CategoryActivity::class.java))
             myIntent.putExtra("TITLE","Main Dish")
             myIntent.putExtra("CATEGORY","Dish")
             startActivity(myIntent)
         }
         binding.drinks.setOnClickListener{
-            var myIntent=(Intent(this@HomeActivity,CategoryActivity::class.java))
+            val myIntent=(Intent(this@HomeActivity,CategoryActivity::class.java))
             myIntent.putExtra("TITLE","Drinks")
             myIntent.putExtra("CATEGORY","Drinks")
             startActivity(myIntent)
         }
         binding.desserts.setOnClickListener{
-            var myIntent=(Intent(this@HomeActivity,CategoryActivity::class.java))
+            val myIntent=(Intent(this@HomeActivity,CategoryActivity::class.java))
             myIntent.putExtra("TITLE","Desserts")
             myIntent.putExtra("CATEGORY","Desserts")
             startActivity(myIntent)
@@ -73,14 +73,14 @@ class HomeActivity : AppCompatActivity() {
     private fun setUpRecyclerView() {
         dataList= ArrayList()
         binding.rvPopular.layoutManager= LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        var db = Room.databaseBuilder(this@HomeActivity,AppDatabase::class.java,"db_name")
+        val db = Room.databaseBuilder(this@HomeActivity,AppDatabase::class.java,"db_name")
             .allowMainThreadQueries()
             .fallbackToDestructiveMigration()
             .createFromAsset("recipe.db")
             .build()
 
-        var daoObject=db.getDao()
-        var recipes=daoObject.getAll()
+        val daoObject=db.getDao()
+        val recipes=daoObject.getAll()
         for(i in recipes!!.indices){
             if(recipes[i]!!.category.contains("Popular")) {
                 dataList.add(recipes[i]!!)
